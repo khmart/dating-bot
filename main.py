@@ -83,28 +83,6 @@ chetchik_poisk = {}
 chetchik_find = {}
 feedback_user = {}
 
-# with open('free_user_list.txt', 'r') as f:
-#     try:
-#         free_user = json.load(f)
-#     # if the file is empty the ValueError will be thrown
-#     except ValueError:
-#         pass
-
-# with open('pay_user.txt', 'r') as f:
-#     try:
-#         pay_user = json.load(f,parse_int=True)
-#     # if the file is empty the ValueError will be thrown
-#     except ValueError:
-#         pass
-#
-# with open('reg_list.txt', 'r') as f:
-#     try:
-#         reg_user = json.load(f)
-#     # if the file is empty the ValueError will be thrown
-#     except ValueError:
-#         pass
-
-
 @bot.message_handler(commands=['start'])
 def start_bot(message):
     bot.send_message(message.chat.id, 'Кнопка НАЧАТЬ - запустить бота.', reply_markup=keyboard)
@@ -170,39 +148,26 @@ def get_text_messages(message):
         with open('reg_list.txt', 'w') as f:
             json.dump(reg_user, f)
     elif message.text.lower() == 'познакомиться':
-        registracia_user(message)
-        # get_free(message.from_user.id)
+        registracia_user(message)       
         bot.send_message(message.from_user.id, 'Здесь можно познакомиться, общаться и договориться о встрече')
         bot.send_message(message.from_user.id, 'Укажите ваше ИМЯ', reply_markup=key_stop)
         user_choice[message.from_user.id] = {'choice': 'meeting'}
         bot.register_next_step_handler(message, get_name_user)
     elif message.text.lower() == 'отношения без обязательств':
-        registracia_user(message)
-        # get_free(message.from_user.id)
+        registracia_user(message)       
         active_free(message.from_user.id)
-        # if message.from_user.id in pay_user or message.from_user.id in free_user or str(message.from_user.id) in pay_user or str(message.from_user.id) in free_user:
         bot.send_message(message.from_user.id, 'Найди партнера для быстрых встреч')
-        # bot.send_message(message.from_user.id, 'Укажите ваше ИМЯ')
-        # user_choice[message.from_user.id] = {'choice': 'sex'}
-        # bot.register_next_step_handler(message, get_name_user)
+        
         bot.send_message(message.from_user.id, 'Вы потверждаете, что вам больше 18 лет?', reply_markup=key_18)
         bot.register_next_step_handler(message, get_user_sex)
-        # else:
-        #     bot.send_message(message.from_user.id, 'Срок действия бесплатного доступа закончился, доступно для платных пользователей')
-
+       
     elif message.text.lower() == 'спонсорство':
-        registracia_user(message)
-        # get_free(message.from_user.id)
-        active_free(message.from_user.id)
-        # if message.from_user.id in pay_user or message.from_user.id in free_user or str(message.from_user.id) in pay_user or str(message.from_user.id) in free_user:
-        bot.send_message(message.from_user.id, 'Попробуй найти спонсора')
-        # bot.send_message(message.from_user.id, 'Укажите ваше ИМЯ')
-        # user_choice[message.from_user.id] = {'choice': 'money'}
-        # bot.register_next_step_handler(message, get_name_user)
+        registracia_user(message)       
+        active_free(message.from_user.id)       
+        bot.send_message(message.from_user.id, 'Попробуй найти спонсора')        
         bot.send_message(message.from_user.id, 'Вы потверждаете, что вам больше 18 лет?', reply_markup=key_18)
         bot.register_next_step_handler(message, get_user_money)
-        # else:
-        #     bot.send_message(message.from_user.id, 'Срок действия бесплатного доступа закончился, доступно для платных пользователей')
+       
     elif message.text.lower() == 'донаты':
         bot.send_message(message.chat.id,
                          "Сейчас вы получите счет."
@@ -231,8 +196,7 @@ def get_text_messages(message):
             def_start(message.from_user.id)
         else:
             bot.send_message(message.from_user.id, 'Нужно выбрать категорию поиска', reply_markup=keyboard_main)
-    elif message.text.lower() == 'покинуть чат':
-        # delete_user(message.from_user.id)
+    elif message.text.lower() == 'покинуть чат':       
         if message.from_user.id in user_status:
             if message.from_user.id in para:
                 user_id = para[message.from_user.id]
