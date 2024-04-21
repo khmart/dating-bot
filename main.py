@@ -6,9 +6,9 @@ from telebot.types import LabeledPrice, ShippingOption
 from flask import Flask, request
 
 
-# bot = telebot.TeleBot('1487009834:AAHK9IRhhoMqgrfWTVM2Dj47jG9A_ZkV78s')
-bot = telebot.TeleBot('1487009834:AAHK9IRhhoMqgrfWTVM2Dj47jG9A_ZkV78s')
-provider_token = '381764678:TEST:18036'
+
+bot = telebot.TeleBot('your_token')
+provider_token = 'test:test'
 
 bot.set_webhook()
 
